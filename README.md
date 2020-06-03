@@ -1,6 +1,6 @@
 ## Task Management Application - React
 
-![alt](https://imgur.com/8zGVxrs)
+![alt](https://raw.githubusercontent.com/devatsrs/task-management-app/master/screenshot.jpg)
 
 # Install
 
