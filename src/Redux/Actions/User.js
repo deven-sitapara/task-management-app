@@ -9,31 +9,31 @@ export const userActions = {
   register,
   resetRegistered,
   getAll,
-  delete: _delete,
+  delete: _delete
 };
 
 function login(username, password) {
-  return (dispatch) => {
+  return dispatch => {
     // https://github.com/devatsrs/react-redux-links
     //https://www.bacancytechnology.com/blog/3-react-architecture-practices
     //https://www.sitepoint.com/react-architecture-best-practices/
-    return new Promise(function (resolve, reject) {
+    return new Promise(function(resolve, reject) {
       dispatch(request({ username }));
       userService
         .login(username, password)
         .then(
-          (user) => {
+          user => {
             dispatch(success(user));
             //history.push("/dashbord");
             resolve();
           },
-          (error) => {
+          error => {
             dispatch(failure(error.toString()));
             dispatch(alertActions.error(error.toString()));
             reject(error);
           }
         )
-        .catch((error) => {
+        .catch(error => {
           dispatch(failure(error.toString()));
           dispatch(alertActions.error(error.toString()));
           reject(error);
@@ -53,7 +53,7 @@ function login(username, password) {
 }
 
 function user_logout() {
-  return (dispatch) => {
+  return dispatch => {
     userService.logout();
 
     dispatch({ type: userConstants.LOGOUT });
@@ -61,18 +61,19 @@ function user_logout() {
 }
 
 function register(user) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(request(user));
 
     userService.register(user).then(
-      (user) => {
+      user => {
         dispatch(success());
         //history.push("/login");
         dispatch(alertActions.success("Registration successful"));
       },
-      (error) => {
-        dispatch(failure(error.toString()));
-        dispatch(alertActions.error(error.toString()));
+      error => {
+        console.log(error);
+        dispatch(failure(error));
+        dispatch(alertActions.error(error));
       }
     );
   };
@@ -89,18 +90,18 @@ function register(user) {
 }
 
 function resetRegistered() {
-  return (dispatch) => {
+  return dispatch => {
     dispatch({ type: userConstants.REGISTER_RESET });
   };
 }
 
 function getAll() {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(request());
 
     userService.getAll().then(
-      (users) => dispatch(success(users)),
-      (error) => dispatch(failure(error.toString()))
+      users => dispatch(success(users)),
+      error => dispatch(failure(error.toString()))
     );
   };
 
@@ -117,12 +118,12 @@ function getAll() {
 
 // prefixed function name with underscore because delete is a reserved word in javascript
 function _delete(id) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(request(id));
 
     userService.delete(id).then(
-      (user) => dispatch(success(id)),
-      (error) => dispatch(failure(id, error.toString()))
+      user => dispatch(success(id)),
+      error => dispatch(failure(id, error.toString()))
     );
   };
 

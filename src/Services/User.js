@@ -65,7 +65,7 @@ function register(user) {
     body: JSON.stringify(user),
   };
 
-  return fetch(`${config.apiUrl}/users/register`, requestOptions).then(
+  return fetch(`${config.apiUrl}/users/signup`, requestOptions).then(
     handleResponse
   );
 }

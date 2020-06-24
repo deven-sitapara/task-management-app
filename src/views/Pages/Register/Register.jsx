@@ -14,10 +14,10 @@ class Register extends PureComponent {
       user: {
         firstName: "",
         lastName: "",
-        username: "",
-        password: "",
+        email: "",
+        password: ""
       },
-      submitted: false,
+      submitted: false
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -30,8 +30,8 @@ class Register extends PureComponent {
     this.setState({
       user: {
         ...user,
-        [name]: value,
-      },
+        [name]: value
+      }
     });
   }
 
@@ -40,7 +40,7 @@ class Register extends PureComponent {
 
     this.setState({ submitted: true });
     const { user } = this.state;
-    if (user.firstName && user.lastName && user.username && user.password) {
+    if (user.firstName && user.lastName && user.email && user.password) {
       this.props.register(user);
     }
   }
@@ -120,21 +120,19 @@ class Register extends PureComponent {
                         <div
                           className={
                             "form-group" +
-                            (submitted && !user.username ? " has-error" : "")
+                            (submitted && !user.email ? " has-error" : "")
                           }
                         >
                           <input
                             type="text"
                             className="form-control"
-                            name="username"
-                            placeholder="Username"
-                            value={user.username}
+                            name="email"
+                            placeholder="email"
+                            value={user.email}
                             onChange={this.handleChange}
                           />
-                          {submitted && !user.username && (
-                            <div className="text-danger">
-                              Username is required
-                            </div>
+                          {submitted && !user.email && (
+                            <div className="text-danger">email is required</div>
                           )}
                         </div>
                         <div
@@ -203,7 +201,7 @@ function mapState(state) {
 
 const actionCreators = {
   register: userActions.register,
-  clearAlerts: alertActions.clear,
+  clearAlerts: alertActions.clear
 };
 
 export default connect(mapState, actionCreators)(Register);
